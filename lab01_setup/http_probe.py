@@ -21,7 +21,6 @@ while True:
     chunk = client_sock.recv(4096)
     if not chunk:
         break
-    
-response += chunk
+    response += chunk
 print(response.decode("utf-8", errors="replace"))
 client_sock.close()
