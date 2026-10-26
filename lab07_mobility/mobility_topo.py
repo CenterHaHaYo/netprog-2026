@@ -13,9 +13,9 @@ def topology():
     sta2 = net.addStation('sta2', position='85,50,0')
     sta3 = net.addStation('sta3', position='10,50,0')
     ap1 = net.addAccessPoint('ap1', ssid='netprog-ap1', mode='g', channel='1',
-                             position='20,50,0', range=35, failMode='standalone')
+                             position='20,50,0', range=15, failMode='standalone')
     ap2 = net.addAccessPoint('ap2', ssid='netprog-ap2', mode='g', channel='6',
-                             position='80,50,0', range=35, failMode='standalone')
+                             position='80,50,0', range=15, failMode='standalone')
 
     net.configureWifiNodes()
     net.addLink(ap1, ap2)
@@ -37,6 +37,9 @@ def topology():
     sta3.cmd('iw dev sta3-wlan0 connect netprog-ap1')
     time.sleep(2)
     
+    sta3.cmd('ping -i 0.5 10.0.0.1 > /tmp/sta3_ping.log &')
+
+
     info("*** Monitoring sta3 association during mobility\n")
     for t in range(22):
         x = sta3.position[0]
